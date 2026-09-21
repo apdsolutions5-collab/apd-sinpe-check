@@ -8,31 +8,29 @@ def limpiar_texto(texto):
 
 def preprocesar_imagen(ruta_imagen):
     """
-    Aplica filtros básicos con Pillow a la imagen del comprobante:
-    1. Convierte a escala de grises.
-    2. Ajusta el contraste.
-    3. Aplica binarización (blanco y negro puro).
+    Procesa la imagen para dejarla en blanco y negro puro (1-bit),
+    optimizada para la lectura del OCR (Tesseract).
     """
-    # Abrir imagen o ruta 
+    #Abrir imagen o ruta 
     img = Image.open(ruta_imagen)
     
-    # Convertir a escala de grises
+    # 1. Escala de grises
     img_gris = ImageOps.grayscale(img)
     
-    # Ajustar el contraste
+    # 2. Ajuste de contraste
     enhancer = ImageEnhance.Contrast(img_gris)
     img_contraste = enhancer.enhance(2.0)
     
-    # Binarización
-    img_binaria = img_contraste.point(lambda p: 255 if p > 128 else 0)
+    # 3. Binarización a blanco y negro 
+    img_binaria = img_contraste.point(lambda p: 255 if p > 128 else 0).convert('1')
     
     return img_binaria
 
 def guardar_imagen_procesada(img, ruta_destino):
-    """Guarda la imagen en la ruta especificada"""
+    """Guarda la imagen procesada en la ruta especificada."""
     img.save(ruta_destino)
 
 def obtener_tamano_imagen(ruta_imagen):
-    """Devuelve las dimensiones de la imagen."""
+    """Devuelve las dimensiones (ancho, alto) de la imagen."""
     with Image.open(ruta_imagen) as img:
         return img.size
