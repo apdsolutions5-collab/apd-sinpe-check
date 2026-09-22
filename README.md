@@ -84,5 +84,49 @@ cd apd-sinpe-check
 
 Sistema de verificación y procesamiento de comprobantes SINPE Móvil mediante OCR e Inteligencia Artificial.
 
+KAN-3: Configuración del Entorno Inicial y Proyecto Base
+
+  KAN-13: Instalación y configuración de Tesseract OCR en el sistema operativo local con soporte para idioma español (spa).
+
+  KAN-14: Creación e inicialización del entorno virtual de desarrollo de Python (venv) en la raíz del proyecto.
+
+  KAN-15: Creación del archivo requirements.txt con las librerías base del proyecto (fastapi, uvicorn, pillow, pytesseract).
+
+  KAN-16: Creación de la estructura del módulo web app/main.py con un endpoint inicial GET / para prueba de disponibilidad.
+
+  KAN-17: Verificación, levantamiento y prueba de respuesta del servidor local mediante FastAPI y Uvicorn.
+
+  KAN-56: Primer registro de commits y publicación de la estructura base en el repositorio remoto de GitHub.
+
+KAN-4: Recolección y Mapeo Sintáctico de Comprobantes SINPE
+
+  KAN-18: Creación de la carpeta /test_images en la raíz del repositorio para almacenar las capturas de prueba.
+
+  KAN-19: Recolección de muestras de comprobantes reales de transacciones SINPE Móvil de diferentes entidades financieras de Costa Rica.
+
+  KAN-20: Documentación del archivo banco_keywords.md con el mapeo corporativo de palabras clave (Número de transacción, Teléfono, Monto, Fecha, Nombre e IBAN).
+
+KAN-5: Módulo de Preprocesamiento y Limpieza de Imágenes
+  KAN-21: Creación del archivo app/utils.py enfocado en la optimización gráfica pre-OCR.
+
+  KAN-22: Programación de funciones de filtrado con la librería Pillow (conversión a escala de grises y ajuste de contraste).
+
+  KAN-23: Implementación del algoritmo de umbralizado (binarización) para convertir imágenes a blanco y negro puro, aumentando el contraste y la legibilidad para el motor OCR.
+
+KAN-6: Implementación del Motor OCR y Extracción Estructurada
+  KAN-24: Creación de la arquitectura base del motor OCR en app/ocr_engine.py.
+
+  KAN-25: Integración de pytesseract vinculando la ruta del ejecutable local y configurando el idioma español (lang='spa').
+
+  KAN-26: Diseño e implementación de patrones de Expresiones Regulares (Regex) en la función extraer_campos_sinpe para aislar los 4 campos obligatorios:
+
+    Número de comprobante / Referencia (ej. 25281SRV3T).
+
+    Fecha y hora del pago (ej. 08/10/2025 04:27:27 pm).
+
+    Teléfono de origen (ej. 61961200).
+
+    Monto estandarizado en colones (ej. ₡ 1.300.00).
+
 ---
 
