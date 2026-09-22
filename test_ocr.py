@@ -4,8 +4,8 @@ from PIL import Image
 from app.ocr_engine import extraer_texto_de_imagen, extraer_campos_sinpe
 
 # ==========================================================
-# 1. RUTA DE LA CARPETA DONDE ESTÁN LAS IMÁGENES
-# ==========================================================
+# 1. Ruta donde estan las imagenes 
+
 DIRECTORIO_IMAGENES = "./test_images"  # Busca dentro de test_images
 
 extensiones = ('*.jpg', '*.jpeg', '*.png', '*.JPG', '*.JPEG', '*.PNG')
@@ -14,7 +14,7 @@ archivos_encontrados = []
 for ext in extensiones:
     archivos_encontrados.extend(glob.glob(os.path.join(DIRECTORIO_IMAGENES, ext)))
 
-# --- FILTROS Y ELIMINACIÓN DE DUPLICADOS ---
+# --- Filtros y Eliminacion de duplicados ---
 archivos_filtrados = [
     f for f in archivos_encontrados 
     if not os.path.basename(f).startswith("resultado_")
@@ -24,8 +24,8 @@ imagenes_a_procesar = list(dict.fromkeys(archivos_filtrados))
 
 
 # ==========================================================
-# 2. PROCESAMIENTO Y SALIDA
-# ==========================================================
+# 2. Procesamiento y salida 
+
 print("==========================================================")
 print("🚀 MOTOR OCR MULTI-MONEDA")
 print(f"📂 Total de imágenes a procesar: {len(imagenes_a_procesar)}")
