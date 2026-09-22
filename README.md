@@ -61,3 +61,28 @@ Tu meta es dedicar **40 horas de desarrollo** distribuidas a lo largo de esta se
   - _Descripción:_ Validar el comportamiento del sistema con imágenes corruptas, falsificadas o sin texto bancario.
 - **Ticket-010: Documentación Técnica de Integración (4h)**
   - _Descripción:_ Documentar el manual de despliegue en este README para el equipo de planta de A.P.D.
+
+  #####################################################
+
+# 🚀 APD SinpeCheck
+
+**Módulo de Validación Automatizada de SINPE Móvil mediante OCR Local**  
+_A.P.D. Software Solutions | Programa de Pasantías_
+
+¡Bienvenido al repositorio de **APD SinpeCheck**! Este proyecto es un MVP (Producto Mínimo Viable) diseñado para verificar comprobantes de pago SINPE Móvil de manera automatizada mediante procesamiento de imágenes y OCR local.
+
+---
+
+## 🛠️ Requisitos Previos e Instalación
+
+Para ejecutar este proyecto en tu entorno local, sigue detalladamente los siguientes pasos:
+
+### 1. Clonar el repositorio
+```bash
+git clone [https://github.com/apdsolutions5-collab/apd-sinpe-check.git](https://github.com/apdsolutions5-collab/apd-sinpe-check.git)
+cd apd-sinpe-check
+
+Sistema de verificación y procesamiento de comprobantes SINPE Móvil mediante OCR e Inteligencia Artificial.
+
+---
+
