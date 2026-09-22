@@ -7,10 +7,8 @@ def limpiar_texto(texto):
     return texto.lower().strip()
 
 def preprocesar_imagen(ruta_imagen):
-    """
-    Procesa la imagen para dejarla en blanco y negro puro (1-bit),
-    optimizada para la lectura del OCR (Tesseract).
-    """
+
+   
     #Abrir imagen o ruta 
     img = Image.open(ruta_imagen)
     
