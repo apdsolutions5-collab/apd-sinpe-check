@@ -19,6 +19,21 @@ def extraer_texto_de_imagen(imagen_procesada: Image.Image) -> str:
         return ""
 
 
+def obtener_confianza_ocr(imagen_procesada: Image.Image) -> float:
+    """Calcula el porcentaje de confianza promedio del texto detectado por Tesseract OCR."""
+    try:
+        datos = pytesseract.image_to_data(imagen_procesada, lang='spa', output_type=pytesseract.Output.DICT)
+        confiabilidades = [int(conf) for conf in datos['conf'] if int(conf) > -1]
+        
+        if confiabilidades:
+            promedio = sum(confiabilidades) / len(confiabilidades)
+            return round(promedio, 2)
+        return 0.0
+    except Exception as e:
+        print(f"❌ Error al obtener confianza de Tesseract OCR: {e}")
+        return 0.0
+
+
 def detectar_moneda_y_monto(texto_ocr: str) -> dict:
     """Detecta el monto y la moneda priorizando patrones con Colones, comas/puntos y etiquetas."""
 
