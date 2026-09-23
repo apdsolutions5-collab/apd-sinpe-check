@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 import pytesseract
 from PIL import Image
 
-from app.ocr_engine import extraer_texto_de_imagen, extraer_campos_sinpe
+from app.ocr_engine import extraer_texto_de_imagen, extraer_campos_sinpe, obtener_confianza_ocr
 from app.database import get_db, Pago
 
 app = FastAPI(title="API de Verificación SINPE - OCR", version="1.0")
@@ -32,7 +32,6 @@ async def extraer_texto(file: UploadFile = File(...)):
         return {"error": str(e)}
 
 
-
 @app.post("/api/v1/validate-payment")
 async def validate_payment(
     file: UploadFile = File(..., description="Imagen del comprobante SINPE"),
@@ -53,9 +52,10 @@ async def validate_payment(
         contenido = await file.read()
         imagen = Image.open(io.BytesIO(contenido))
 
-        # Extraer texto y procesar datos con el motor OCR del proyecto
+        # Extraer texto, campos y nivel de confianza con OCR
         texto_extraido = extraer_texto_de_imagen(imagen)
         datos_sinpe = extraer_campos_sinpe(texto_extraido)
+        confianza_ocr = obtener_confianza_ocr(imagen)
 
         num_comprobante = datos_sinpe.get("numero_comprobante")
         monto_detectado = datos_sinpe.get("monto_numerico")
@@ -78,20 +78,12 @@ async def validate_payment(
             except ValueError:
                 monto_coincide = False
 
-        # Si ya existe en la base de datos, notificamos la duplicidad
-        if es_duplicado:
-            return {
-                "exito": False,
-                "mensaje": "Comprobante duplicado. La transacción ya existe en el sistema.",
-                "nombre_archivo": file.filename,
-                "monto_esperado": expected_amount,
-                "monto_coincide": monto_coincide,
-                "es_duplicado": True,
-                "datos_comprobante": datos_sinpe
-            }
+        # Determinar el estatus final del pago en español
+        pago_valido = monto_coincide and (not es_duplicado) and (num_comprobante is not None)
+        estatus_pago = "Válido" if pago_valido else "Inválido"
 
-        # 3. Si la transacción es nueva y el monto coincide, la guardamos en SQLite
-        if monto_coincide and num_comprobante:
+        # 3. Si la transacción es válida y nueva, la guardamos en SQLite
+        if pago_valido:
             nuevo_pago = Pago(
                 numero_comprobante=num_comprobante,
                 monto=expected_amount,
@@ -101,14 +93,19 @@ async def validate_payment(
             db.add(nuevo_pago)
             db.commit()
 
+        # Respuesta estructurada limpia para KAN-33
         return {
-            "exito": True,
-            "nombre_archivo": file.filename,
-            "monto_esperado": expected_amount,
-            "monto_coincide": monto_coincide,
-            "es_duplicado": False,
-            "datos_comprobante": datos_sinpe,
-            "texto_ocr_raw": texto_extraido
+            "estatus_pago": estatus_pago,
+            "numero_referencia": num_comprobante,
+            "porcentaje_confianza_ocr": confianza_ocr,
+            "detalles": {
+                "monto_esperado": expected_amount,
+                "monto_coincide": monto_coincide,
+                "es_duplicado": es_duplicado,
+                "nombre_archivo": file.filename,
+                "datos_comprobante": datos_sinpe,
+                "texto_ocr_raw": texto_extraido
+            }
         }
 
     except Exception as e:
