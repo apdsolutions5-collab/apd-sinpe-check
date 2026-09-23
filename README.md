@@ -62,6 +62,12 @@ Tu meta es dedicar **40 horas de desarrollo** distribuidas a lo largo de esta se
 - **Ticket-010: Documentación Técnica de Integración (4h)**
   - _Descripción:_ Documentar el manual de despliegue en este README para el equipo de planta de A.P.D.
 
+<<<<<<< HEAD
+
+  # 🚀 APD SinpeCheck
+
+**APD SinpeCheck** es un sistema backend desarrollado en Python diseñado para la lectura, validación y procesamiento automático de comprobantes de pago de **SINPE Móvil** en Costa Rica mediante OCR (Reconocimiento Óptico de Caracteres) e Inteligencia Artificial.
+=======
   #####################################################
 
 # 🚀 APD SinpeCheck
@@ -70,18 +76,66 @@ Tu meta es dedicar **40 horas de desarrollo** distribuidas a lo largo de esta se
 _A.P.D. Software Solutions | Programa de Pasantías_
 
 ¡Bienvenido al repositorio de **APD SinpeCheck**! Este proyecto es un MVP (Producto Mínimo Viable) diseñado para verificar comprobantes de pago SINPE Móvil de manera automatizada mediante procesamiento de imágenes y OCR local.
+>>>>>>> main
 
 ---
 
 ## 🛠️ Requisitos Previos e Instalación
 
+<<<<<<< HEAD
+1. **Python 3.10+** instalado en el sistema.
+2. **Tesseract OCR** instalado localmente en el sistema operativo con soporte para el idioma español (`spa`).
+
+---
+
+## 🚀 Guía de Instalación y Configuración Local
+=======
 Para ejecutar este proyecto en tu entorno local, sigue detalladamente los siguientes pasos:
+>>>>>>> main
 
 ### 1. Clonar el repositorio
 ```bash
 git clone [https://github.com/apdsolutions5-collab/apd-sinpe-check.git](https://github.com/apdsolutions5-collab/apd-sinpe-check.git)
 cd apd-sinpe-check
 
+<<<<<<< HEAD
+
+KAN-3: Configuración del Entorno Inicial y Proyecto Base
+KAN-13: Instalación y configuración de Tesseract OCR en el sistema operativo local con soporte para idioma español (spa).
+
+KAN-14: Creación e inicialización del entorno virtual de desarrollo de Python (venv) en la raíz del proyecto.
+
+KAN-15: Creación del archivo requirements.txt con las librerías base del proyecto (fastapi, uvicorn, pillow, pytesseract).
+
+KAN-16: Creación de la estructura del módulo web app/main.py con un endpoint inicial GET / para prueba de disponibilidad.
+
+KAN-17: Verificación, levantamiento y prueba de respuesta del servidor local mediante FastAPI y Uvicorn.
+
+KAN-56: Primer registro de commits y publicación de la estructura base en el repositorio remoto de GitHub.
+
+ KAN-4: Recolección y Mapeo Sintáctico de Comprobantes SINPE
+KAN-18: Creación de la carpeta /test_images en la raíz del repositorio para almacenar las capturas de prueba.
+
+KAN-19: Recolección de muestras de comprobantes reales de transacciones SINPE Móvil de diferentes entidades financieras de Costa Rica.
+
+KAN-20: Documentación del archivo banco_keywords.md con el mapeo corporativo de palabras clave (Número de transacción, Teléfono, Monto, Fecha, Nombre e IBAN).
+
+ KAN-5: Módulo de Preprocesamiento y Limpieza de Imágenes
+KAN-21: Creación del archivo app/utils.py enfocado en la optimización gráfica pre-OCR.
+
+KAN-22: Programación de funciones de filtrado con la librería Pillow (conversión a escala de grises y ajuste de contraste).
+
+KAN-23: Implementación del algoritmo de umbralizado (binarización) para convertir imágenes a blanco y negro puro, aumentando el contraste y la legibilidad para el motor OCR.
+
+ KAN-6: Implementación del Motor OCR y Extracción Estructurada
+KAN-24: Creación de la arquitectura base del motor OCR en app/ocr_engine.py.
+
+KAN-25: Integración de pytesseract vinculando la ruta del ejecutable local y configurando el idioma español (lang='spa').
+
+KAN-26: Diseño e implementación de patrones de Expresiones Regulares (Regex) en la función extraer_campos_sinpe para aislar los 4 campos obligatorios (Comprobante, Fecha, Teléfono y Monto en colones ₡).
+
+KAN-27: Creación y ejecución del script de pruebas masivas en consola (test_ocr.py) para validar el motor OCR y la extracción por Regex en todo el conjunto de comprobantes recolectados en test_images/.
+=======
 Sistema de verificación y procesamiento de comprobantes SINPE Móvil mediante OCR e Inteligencia Artificial.
 
 KAN-3: Configuración del Entorno Inicial y Proyecto Base
@@ -130,3 +184,4 @@ KAN-6: Implementación del Motor OCR y Extracción Estructurada
 
 ---
 
+>>>>>>> main
